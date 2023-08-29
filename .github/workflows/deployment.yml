@@ -21,17 +21,30 @@ jobs:
                 channel: 'stable'
             - name: Get Branch Name
               id: branch
-              run: echo "::set-output name-branch::${GITHUB_REF##/}"            
+              run: echo "::set-output name-branch::${GITHUB_REF##*/}"            
             - name: Get Today Date
               id: date
               run: echo "::set-output name-date::${date + '%Y-%m-%d'}"
             - name: Get Folder Id by condition
               uses: haya14busa/action-cond@v1
-              id: FolderId
+              id: folderId
               with: 
                 cond: ${{ steps.branch.outputs.branch=='main'}}
                 if_true: ${{secrets.MASTERFOLDERID}}
                 if_false: ${{secrets.QATESTFOLDERID}}
             - run: flutter pub get
             - run: flutter build apk
+            - name: Archive files
+              run: |
+                sudo apt-get update
+                sudo apt-get install zip
+                zip -r archive.zip *
 
+            - name: upload apk to Google Drive
+              uses: adityak74/google-drive-upload-git-action@main
+              with:
+                credentials: ${{ secrets.CREDENTIALS }}
+                filename: "build/app/outputs/apk/release/app_release.apk"
+                folderId: ${{ steps.folderId.outputs.value }}
+                name: ${{steps.branch.outputs.branch}}_apk_${{steps.date.outputs.date}}.apk
+                overwrite: "true" 
