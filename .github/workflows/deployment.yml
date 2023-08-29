@@ -48,3 +48,4 @@ jobs:
                 folderId: ${{ steps.folderId.outputs.value }}
                 name: ${{steps.branch.outputs.branch}}_apk_${{steps.date.outputs.date}}.apk
                 overwrite: "true" 
+                mimeType: "application/vnd.android.package-archive"
