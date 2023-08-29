@@ -47,6 +47,6 @@ jobs:
                 # filename: "build/app/outputs/apk/release/app-release.apk"
                 filename: "build/app/outputs/flutter-apk/app-release.apk"
                 folderId: ${{steps.folderId.outputs.value}}
-                name: ${{steps.branch.outputs.branch}}_apk_${{steps.date.outputs.date}}.apk
+                name: app-release.apk
                 overwrite: "true" 
                 mimeType: "application/vnd.android.package-archive"
