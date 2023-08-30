@@ -52,6 +52,6 @@ jobs:
               #   mimeType: "application/vnd.android.package-archive"
               uses: Jodebu/upload-to-drive@master
               with:
-                target: public
+                target: "build/app/outputs/flutter-apk/app-release.apk"
                 credentials:  ${{secrets.CREDENTIALS}}
                 folder:  ${{steps.folderId.outputs.value}}
