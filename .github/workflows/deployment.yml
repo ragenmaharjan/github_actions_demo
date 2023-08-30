@@ -44,17 +44,17 @@ jobs:
                 sudo apt-get install zip
                 zip -r archive.zip *
 
-            - name: upload apk to Google Drive
-              uses: adityak74/google-drive-upload-git-action@v0.3
-              with:
-                credentials: ${{secrets.CREDENTIALS}}
-                filename: "build/app/outputs/apk/release/app-release.apk"
-                # filename: "build/app/outputs/flutter-apk/app-release.apk"
-                folderId: ${{steps.folderId.outputs.value}}
-                # name: ${{steps.branch.outputs.branch}}_apk_${{steps.date.outputs.date}}.apk
-                name: app-release.apk
-                overwrite: "true" 
-                mimeType: "application/vnd.android.package-archive"
+            # - name: upload apk to Google Drive
+            #   uses: adityak74/google-drive-upload-git-action@v0.3
+            #   with:
+            #     credentials: ${{secrets.CREDENTIALS}}
+            #     filename: "build/app/outputs/apk/release/app-release.apk"
+            #     # filename: "build/app/outputs/flutter-apk/app-release.apk"
+            #     folderId: ${{steps.folderId.outputs.value}}
+            #     # name: ${{steps.branch.outputs.branch}}_apk_${{steps.date.outputs.date}}.apk
+            #     name: app-release.apk
+            #     overwrite: "true" 
+            #     mimeType: "application/vnd.android.package-archive"
               # uses: Jodebu/upload-to-drive@master
               # with:
               #   target: "build/app/outputs/flutter-apk/app-release.apk"
