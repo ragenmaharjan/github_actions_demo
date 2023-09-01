@@ -50,17 +50,29 @@ jobs:
                 sudo apt-get install zip
                 zip -r archive.zip *
 
-            - name: upload apk to Google Drive
-              uses: adityak74/google-drive-upload-git-action@v0.3
-              with:
-                credentials: ${{secrets.CREDENTIALS}}
-                filename: "build/app/outputs/apk/release/app-release.apk"
-                # filename: "build/app/outputs/flutter-apk/app-release.apk"
-                folderId: ${{steps.folderId.outputs.value}}
-                # name: ${{steps.branch.outputs.branch}}_apk_${{steps.date.outputs.date}}.apk
-                name: app-release
-                overwrite: "true" 
-                mimeType: "application/vnd.android.package-archive"
+            # - name: upload apk to Google Drive
+            #   uses: adityak74/google-drive-upload-git-action@v0.3
+            #   with:
+            #     credentials: ${{secrets.CREDENTIALS}}
+            #     filename: "build/app/outputs/apk/release/app-release.apk"
+            #     # filename: "build/app/outputs/flutter-apk/app-release.apk"
+            #     folderId: ${{steps.folderId.outputs.value}}
+            #     # name: ${{steps.branch.outputs.branch}}_apk_${{steps.date.outputs.date}}.apk
+            #     name: app-release
+            #     overwrite: "true" 
+            #     mimeType: "application/vnd.android.package-archive"
+            - name: Set up gdrive
+              run: |
+                curl -O https://raw.githubusercontent.com/gdrive-org/gdrive/master/gdrive
+                chmod +x gdrive
+                mv gdrive /usr/local/bin/
+    
+            - name: Upload APK to Google Drive
+              env:
+                GDRIVE_CREDENTIALS: ${{ secrets.GDRIVE_CREDENTIALS_JSON }}
+              run: |
+                  echo "$GDRIVE_CREDENTIALS" > gdrive.json 
+                  gdrive upload --service-account gdrive.json build/app/outputs/apk/release/app-release.apkp
               # uses: Jodebu/upload-to-drive@master
               # with:
               #   target: "build/app/outputs/flutter-apk/app-release.apk"
