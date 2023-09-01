@@ -1,12 +1,12 @@
-name: Github actions demo
+name: Deployment to Production
 
 on:
     push: 
         branches: 
             - main
        
-    pull_request:
-        branches: [ main, staging, development ]
+    # pull_request:
+    #     branches: [ main, staging, development ]
 jobs:
     buiild_upload_notify:
         name: build_upload_notify
