@@ -69,7 +69,7 @@ jobs:
     
             - name: Upload APK to Google Drive
               env:
-                GDRIVE_CREDENTIALS: ${{ secrets.GDRIVE_CREDENTIALS_JSON }}
+                GDRIVE_CREDENTIALS: ${{ secrets.CREDENTIALS }}
               run: |
                   echo "$GDRIVE_CREDENTIALS" > gdrive.json 
                   gdrive upload --service-account gdrive.json build/app/outputs/apk/release/app-release.apkp
